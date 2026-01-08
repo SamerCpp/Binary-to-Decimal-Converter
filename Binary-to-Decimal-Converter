@@ -1,0 +1,100 @@
+# Binary-to-Decimal-Converter
+C++ program converting binary numbers, including fractional parts, into decimal with validation.
+
+
+#include <iostream>
+#include <iomanip>
+#include<bitset>
+#include<string>
+#include<cmath>
+using namespace std;
+//sentence construction namespace
+namespace MYnamespace {
+    //announ variable of type character and inter and boolin
+    string binary;
+    int point;
+    bool ok = true;
+    //announcement function
+    void function() {
+        //announ loop
+        while (true) {
+
+            //System entry request
+            cout << "Please entry the binary system: ";
+           //Seccur entry system
+            if (!(cin >> binary)) {
+                break;// or result
+            }
+            //announcement range loop with for
+            for (char bin : binary) {
+                if (bin == '.') {
+                    point++;//increase by one there is a point
+                }
+                else if (bin != '0' && bin != '1') {
+                    ok = false;
+                    break;
+                }
+            }
+            //announcement condition
+            if (!ok || point > 1 || binary.empty()) {
+                cout << "There is entry error. please try agen" << endl;
+                char agen_1;
+                cout << "if you want to try agen, clack'y': ";
+                cin >> agen_1;
+                if (agen_1 == 'y' || agen_1 == 'Y') {
+                    continue;
+                    break;
+                }
+
+            }
+            size_t part = binary.find('.');
+            //announcement variable of type character whit ternary operator
+                      //separate the integer rom the fraction
+            string intpart = (part == string::npos) ? binary : binary.substr(0, part);
+                    //separate the fraction from an integer
+            string fracpart = (part == string::npos) ? "" : binary.substr(part + 1);
+                  //If the integer is empty
+            if (intpart.empty()) {
+                intpart = "0";
+            }
+            //Frist, convert the correct justice to binary
+            unsigned long long intvaluse = 0;
+            for (char val : intpart) {
+                intvaluse = intvaluse * 2 + (val - '0');
+            }
+
+            //second, convert the fraction to a binary
+            double fracvaluse = 0.0;
+            double place = 0.5;
+            //announcement renage loop with for
+            for (char frac : fracpart) {
+                if (frac == '1') {
+                    fracvaluse = fracvaluse + place;
+                }
+                place = place / 2.0;
+            }
+ 
+            //announcement variable of type character
+            double result = intvaluse + fracvaluse;
+            cout << "The result in decimal is: " << result << endl;
+
+            //announcement variable of type character
+            char agen_2;
+            cout << "If you want to try agen, clack 'y' Or 'n' :  ";
+            cin >> agen_2;
+            if (!(agen_2 == 'y' || agen_2 == 'Y'))
+                break;
+            cout << "-------------------------------------" << endl;
+        }
+    }
+}
+
+int main()
+{
+    cout << "Hello World!\n\n";
+
+    //Using an alise for the namespace
+    namespace MN = MYnamespace;
+    //call function
+    MN::function();
+}
